@@ -52,7 +52,21 @@ export const getDb = async () => {
   return result;
 };
 
-// TODO: Complete the deleteDb() function below:
-export const deleteDb = async (id) => {};
+export const deleteDb = async (id) => {
+  console.log("DELETE from the database!", id);
+
+  const contactDB = await openDB("contact", 1);
+
+  const tx = contactDB.transaction("contact", "readwrite");
+
+  const store = tx.objectStore("contact");
+
+  const request = store.delete(id);
+
+  const result = await request;
+
+  console.log("result value", result);
+  return result?.value;
+};
 
 initdb();
