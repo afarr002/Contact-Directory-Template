@@ -1,7 +1,7 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-const path = require("path");
-const { GenerateSW } = require("workbox-webpack-plugin");
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import WebpackPwaManifest from "webpack-pwa-manifest";
+import path from "path";
+import { GenerateSW } from "workbox-webpack-plugin";
 
 module.exports = () => {
   return {
@@ -23,17 +23,26 @@ module.exports = () => {
         title: "Contact Directory (template)",
       }),
 
-      new GenerateSW(),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
+      }),
+
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: "Contact Directory (template)",
         short_name: "Contact Directory",
         description: "Template for functionality of a Contact Directory",
         background_color: "#FB4F14",
-        crossorigin: "use-credentials",
+        theme_color: "#FB4F14",
+        start_url: "/",
+        publicPath: "/",
         icons: [
           {
-            src: path.resolve("./src/images/logo.png"),
+            src: path.resolve("src/images/logo.png"),
             sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons"),
           },
         ],
       }),
@@ -44,10 +53,6 @@ module.exports = () => {
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: "asset/resource",
         },
         {
           test: /\.m?js$/,
