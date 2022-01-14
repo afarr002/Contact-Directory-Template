@@ -1,46 +1,34 @@
-import { postDb, getDb, deleteDb } from './database';
+import { postDb, getDb, deleteDb } from "./database";
 
-const form = document.getElementById('contact-form');
+const form = document.getElementById("contact-form");
 
-// Adds deleteCard() to the global scope so each card has access to it.
 window.deleteCard = (e) => {
-// Grabs the id from the button element attached to the contact card.
   let id = parseInt(e.id);
 
-  // Delete the card
   deleteDb(id);
 
-  // Reload the DOM
   fetchCards();
 };
 
-form.addEventListener('submit', (event) => {
-  // handle the form data
+form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const name = form.elements['name'].value;
-  const home = form.elements['home-phone'].value;
-  const cell = form.elements['cell-phone'].value;
-  const email = form.elements['email'].value;
+  const name = form.elements["name"].value;
+  const home = form.elements["home-phone"].value;
+  const cell = form.elements["cell-phone"].value;
+  const email = form.elements["email"].value;
 
-
-
-  // Post form data to IndexedDB
   postDb(name, home, cell, email);
 
-  // Submit the form
   form.reset();
 
-  // Reload the DOM
   fetchCards();
 });
 
 const fetchCards = async () => {
-// Grab card data from IndexedDB
   const result = await getDb();
 
   let card = ` `;
 
-  // Loop through the data and create the contact card
   for (let data of result) {
     console.log(data);
     card += `
@@ -60,9 +48,7 @@ const fetchCards = async () => {
     `;
   }
 
-  // Setting innerHTML as card variable
-  document.getElementById('card-group').innerHTML = card;
+  document.getElementById("card-group").innerHTML = card;
 };
 
-// Fetch cards upon being loaded.
 fetchCards();
