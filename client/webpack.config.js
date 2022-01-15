@@ -1,7 +1,7 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import WebpackPwaManifest from "webpack-pwa-manifest";
-import path from "path";
-import { GenerateSW } from "workbox-webpack-plugin";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const path = require("path");
+const { InjectManifest } = require("workbox-webpack-plugin");
 
 module.exports = () => {
   return {
@@ -13,7 +13,7 @@ module.exports = () => {
     },
 
     output: {
-      fielname: "[name].bundle.js",
+      filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
 
