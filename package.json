@@ -1,5 +1,5 @@
 {
-  "name": "Contact-Directory-Template",
+  "name": "contact-directory-template",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -20,5 +20,13 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "webpack-cli": "^4.9.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afarr002/Contact-Directory-Template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/afarr002/Contact-Directory-Template/issues"
+  },
+  "homepage": "https://github.com/afarr002/Contact-Directory-Template#readme"
 }
